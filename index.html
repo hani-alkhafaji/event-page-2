@@ -348,7 +348,15 @@
                 </div>
                 <p class="error-msg" id="upload-error">This device does not support adding photos.</p>
 
-                <input type="date" class="form-field" id="birthday" placeholder="اكتب تاريخ ميلادك" required>
+                <input
+                    type="text"
+                    class="form-field"
+                    id="birthday"
+                    placeholder="اكتب تاريخ ميلادك (يوم / شهر / سنة)"
+                    required
+                    onfocus="this.type='date'; this.placeholder='';"
+                    onblur="if(!this.value){ this.type='text'; this.placeholder='اكتب تاريخ ميلادك (يوم / شهر / سنة)'; }"
+                >
 
                 <input type="text" class="form-field" id="instagram" placeholder="Your Instagram Username?" required>
 
@@ -483,4 +491,3 @@
     </script>
 </body>
 </html>
-
