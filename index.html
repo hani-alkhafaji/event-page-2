@@ -348,7 +348,7 @@
                 </div>
                 <p class="error-msg" id="upload-error">This device does not support adding photos.</p>
 
-                <input type="date" class="form-field" id="birthday" placeholder="Your birthday date?" required>
+                <input type="date" class="form-field" id="birthday" placeholder="اكتب تاريخ ميلادك" required>
 
                 <input type="text" class="form-field" id="instagram" placeholder="Your Instagram Username?" required>
 
@@ -420,8 +420,7 @@
                     state.interestingNum += 1;
                     state.interestingPlus += 1;
                     updateDisplay();
-                    // Scroll shortly after so they see the change
-                    setTimeout(scrollToForm, 900);
+                    // NOTE: For \"Interesting\" we do NOT auto-scroll
                 } else {
                     // User unselected Interesting: decrease counts back
                     state.interestingNum -= 1;
@@ -484,3 +483,4 @@
     </script>
 </body>
 </html>
+
