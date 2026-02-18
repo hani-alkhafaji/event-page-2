@@ -401,8 +401,8 @@
                     state.goingNum += 1;
                     state.goingPlus += 1;
                     updateDisplay();
-                    // Scroll after 2 seconds so they see the change
-                    setTimeout(scrollToForm, 2000);
+                    // Scroll shortly after so they see the change
+                    setTimeout(scrollToForm, 900);
                 } else {
                     // User unselected Going: decrease counts back
                     state.goingNum -= 1;
@@ -420,8 +420,8 @@
                     state.interestingNum += 1;
                     state.interestingPlus += 1;
                     updateDisplay();
-                    // Scroll after 2 seconds so they see the change
-                    setTimeout(scrollToForm, 2000);
+                    // Scroll shortly after so they see the change
+                    setTimeout(scrollToForm, 900);
                 } else {
                     // User unselected Interesting: decrease counts back
                     state.interestingNum -= 1;
