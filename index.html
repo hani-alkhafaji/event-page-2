@@ -4,6 +4,8 @@
   - Event title and numbers load from /api/config.
   - Going/Interesting: text turns red, then number updates after short delay; Going scrolls to form.
   - Guest counter: + (adds 1, then 2, ... up to 10 per click) and - (subtract 1).
+  - Form data can be sent to Google Sheet: set REGISTRATION_SCRIPT_URL below.
+  - Images: put going1.jpg, going2.jpg, going3.jpg, interesting1.jpg, interesting2.jpg, interesting3.jpg in profiles/ folder on GitHub.
 -->
 <html lang="en">
 <head>
@@ -344,12 +346,15 @@
                 </div>
                 <div class="profile-stack">
                     <div class="circle" id="going-img-1">
+                        <img src="profiles/going1.jpg" alt="" onerror="this.style.display='none'">
                         <span class="circle-placeholder">Add Image</span>
                     </div>
                     <div class="circle" id="going-img-2">
+                        <img src="profiles/going2.jpg" alt="" onerror="this.style.display='none'">
                         <span class="circle-placeholder">Add Image</span>
                     </div>
                     <div class="circle" id="going-img-3">
+                        <img src="profiles/going3.jpg" alt="" onerror="this.style.display='none'">
                         <span class="circle-placeholder">Add Image</span>
                     </div>
                 </div>
@@ -364,12 +369,15 @@
                 </div>
                 <div class="profile-stack">
                     <div class="circle" id="interesting-img-1">
+                        <img src="profiles/interesting1.jpg" alt="" onerror="this.style.display='none'">
                         <span class="circle-placeholder">Add Image</span>
                     </div>
                     <div class="circle" id="interesting-img-2">
+                        <img src="profiles/interesting2.jpg" alt="" onerror="this.style.display='none'">
                         <span class="circle-placeholder">Add Image</span>
                     </div>
                     <div class="circle" id="interesting-img-3">
+                        <img src="profiles/interesting3.jpg" alt="" onerror="this.style.display='none'">
                         <span class="circle-placeholder">Add Image</span>
                     </div>
                 </div>
@@ -425,6 +433,7 @@
     <script>
         (function() {
             var CONFIG_SCRIPT_URL = '/api/config';
+            var REGISTRATION_SCRIPT_URL = '';
             var DELAY_BEFORE_COUNT = 500;
             var DELAY_BEFORE_SCROLL = 900;
 
@@ -535,6 +544,10 @@
                 };
                 console.log('Registration:', data);
 
+                if (REGISTRATION_SCRIPT_URL) {
+                    fetch(REGISTRATION_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).catch(function() {});
+                }
+
                 setTimeout(function() {
                     spinner.classList.remove('show');
                     btn.classList.remove('loading');
@@ -569,4 +582,3 @@
     </script>
 </body>
 </html>
-
