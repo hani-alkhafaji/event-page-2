@@ -152,7 +152,7 @@
                 var form = document.createElement('form');
                 form.action = CONFIG_SCRIPT_URL;
                 form.method = 'POST';
-                form.target = 'save-frame';
+                form.target = '_blank';  // يفتح تبويباً جديداً لرؤية رد السكربت (OK / Forbidden / Invalid JSON). بعد التأكد غيّره إلى 'save-frame'
                 form.style.display = 'none';
                 var input = document.createElement('input');
                 input.name = 'data';
@@ -168,3 +168,4 @@
     </script>
 </body>
 </html>
+
