@@ -425,8 +425,8 @@
     <script>
         (function() {
             var CONFIG_SCRIPT_URL = '/api/config';
-            var DELAY_BEFORE_COUNT = 700;
-            var DELAY_BEFORE_SCROLL = 1000;
+            var DELAY_BEFORE_COUNT = 500;
+            var DELAY_BEFORE_SCROLL = 900;
 
             var state = {
                 goingNum: 187,
@@ -465,13 +465,13 @@
                         state.goingNum += 1;
                         state.goingPlus += 1;
                         updateDisplay();
-                        el.classList.remove('highlight-red');
                     }, DELAY_BEFORE_COUNT);
                     setTimeout(scrollToForm, DELAY_BEFORE_SCROLL);
                 } else {
                     state.goingNum -= 1;
                     state.goingPlus -= 1;
                     updateDisplay();
+                    document.getElementById('going-counter-above').classList.remove('highlight-red');
                 }
             }
 
@@ -484,12 +484,12 @@
                         state.interestingNum += 1;
                         state.interestingPlus += 1;
                         updateDisplay();
-                        el.classList.remove('highlight-red');
                     }, DELAY_BEFORE_COUNT);
                 } else {
                     state.interestingNum -= 1;
                     state.interestingPlus -= 1;
                     updateDisplay();
+                    document.getElementById('interesting-counter-above').classList.remove('highlight-red');
                 }
             }
 
@@ -569,3 +569,4 @@
     </script>
 </body>
 </html>
+
