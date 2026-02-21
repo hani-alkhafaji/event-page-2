@@ -119,19 +119,33 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
         .circle img {
+            position: absolute;
+            inset: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
         }
 
-        .circle-placeholder {
+        .circle .circle-placeholder {
+            position: relative;
+            z-index: 0;
             color: rgba(255,255,255,0.6);
             font-size: 11px;
             text-align: center;
             padding: 8px;
+        }
+
+        .circle img[src]:not([src=""]) {
+            z-index: 1;
+        }
+
+        .circle.has-image .circle-placeholder {
+            display: none;
         }
 
         .counter-below {
@@ -369,7 +383,7 @@
                 </div>
                 <div class="profile-stack">
                     <div class="circle" id="interesting-img-1">
-                        <img src="profiles/interesting1.jpg" alt="" onerror="this.style.display='none'">
+                        <img src="interesting1.jpg" alt="" onerror="this.style.display='none'">
                         <span class="circle-placeholder">Add Image</span>
                     </div>
                     <div class="circle" id="interesting-img-2">
@@ -578,7 +592,16 @@
                 updateDisplay();
             }
             updateGuestDisplay();
+
+            document.querySelectorAll('.circle img').forEach(function(img) {
+                function markLoaded() {
+                    if (img.complete && img.naturalWidth > 0) img.closest('.circle').classList.add('has-image');
+                }
+                img.onload = markLoaded;
+                markLoaded();
+            });
         })();
     </script>
 </body>
 </html>
+
