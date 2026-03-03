@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <!--
-  EVENT REGISTRATION PAGE (Site 2, without images and bottom counters)
-  - Event title and numbers load from /api/config.
-  - Going/Interesting: text turns red, then number updates after short delay; Going scrolls to form.
-  - Guest counter: + (adds 1, then 2, ... up to 10 per click) and - (subtract 1).
-  - Form data can be sent to Google Sheet: set REGISTRATION_SCRIPT_URL below.
-  - Birthday: plain text field so user can type date manually (e.g. 15/03/1990 or 1990-03-15).
+  Site 2: Numbers above labels; Level dropdown (Beginner/Intermediate); Dance choice dropdown (5 options).
+  Form sends: fullName, birthday, instagram, guestCount, level, danceChoice.
 -->
 <html lang="en">
 <head>
@@ -88,7 +84,8 @@
 
         .main-counter-label {
             font-size: 16px;
-            margin-bottom: 4px;
+            margin-top: 4px;
+            color: #FFFFFF;
         }
 
         .counter-above {
@@ -100,6 +97,10 @@
         }
 
         .counter-above.highlight-red {
+            color: #FFFFFF;
+        }
+
+        .counter-above.highlight-red .counter-number {
             color: #ff4444;
         }
 
@@ -129,6 +130,11 @@
         .form-field:focus {
             outline: 2px solid #00C896;
             outline-offset: 2px;
+        }
+
+        select.form-field {
+            cursor: pointer;
+            appearance: auto;
         }
 
         .guest-counter-box {
@@ -183,45 +189,6 @@
             color: rgba(255,255,255,0.8);
             margin-bottom: 4px;
             display: block;
-        }
-
-        .fake-upload {
-            width: 100%;
-            background-color: #E0E0E0;
-            border: none;
-            border-radius: 12px;
-            padding: 16px;
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 14px;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .fake-upload:hover {
-            background-color: #d5d5d5;
-        }
-
-        .error-msg {
-            display: none;
-            color: #FFFFFF;
-            font-size: 14px;
-            margin-top: -8px;
-            margin-bottom: 12px;
-        }
-
-        .error-msg.show {
-            display: block;
-        }
-
-        textarea.form-field {
-            min-height: 80px;
-            resize: vertical;
-        }
-
-        input[type="date"].form-field,
-        input[type="text"].form-field {
-            color: #333;
         }
 
         .btn-send {
@@ -302,16 +269,16 @@
 
         <div class="main-counters">
             <div class="main-counter-box">
-                <div class="main-counter-label">People Going</div>
                 <div class="counter-above" id="going-counter-above">
-                    <span id="going-num">187</span>
+                    <span id="going-num" class="counter-number">187</span>
                 </div>
+                <div class="main-counter-label">People Going</div>
             </div>
             <div class="main-counter-box">
-                <div class="main-counter-label">People Interesting</div>
                 <div class="counter-above" id="interesting-counter-above">
-                    <span id="interesting-num">34</span>
+                    <span id="interesting-num" class="counter-number">34</span>
                 </div>
+                <div class="main-counter-label">People Interesting</div>
             </div>
         </div>
 
@@ -327,14 +294,24 @@
                 </div>
 
                 <label class="optional-small">(optionally)</label>
-                <div type="button" class="fake-upload" id="fake-upload" role="button" tabindex="0">
-                    click to add your Instagram image profile
-                </div>
-                <p class="error-msg" id="upload-error">to add Instagram profile photo you need to be logged in first. if you are not a member of Our website you can ignore adding profile photos and Continue to fill in the data and Send it.</p>
+                <select class="form-field" id="level" required>
+                    <option value="">Select your level</option>
+                    <option value="Beginner">Beginner</option>
+                    <option value="Intermediate">Intermediate</option>
+                </select>
 
                 <input type="text" class="form-field" id="birthday" placeholder="Your Birthday (Example 15/03/1990)" required>
 
                 <input type="text" class="form-field" id="instagram" placeholder="Instagram Username to Send you confirmation?" required>
+
+                <select class="form-field" id="dance-choice" required>
+                    <option value="">Select dance preference</option>
+                    <option value="sensual bachata">sensual bachata</option>
+                    <option value="Cuban salsa">Cuban salsa</option>
+                    <option value="both salsa and bachata">both salsa and bachata</option>
+                    <option value="only for start with bachata">only for start with bachata</option>
+                    <option value="the dance teacher decides and i see which one i like more">the dance teacher decides and i see which one i like more</option>
+                </select>
 
                 <button type="submit" class="btn-send" id="btn-send">
                     <span class="spinner" id="spinner"></span>
@@ -388,7 +365,7 @@
                     el.classList.add('highlight-red');
                     setTimeout(function() {
                         state.goingNum += 1;
-                        state.goingPlus += 1; // still updated for config, just not shown
+                        state.goingPlus += 1;
                         updateDisplay();
                     }, DELAY_BEFORE_COUNT);
                     setTimeout(scrollToForm, DELAY_BEFORE_SCROLL);
@@ -407,7 +384,7 @@
                     el.classList.add('highlight-red');
                     setTimeout(function() {
                         state.interestingNum += 1;
-                        state.interestingPlus += 1; // still updated for config, just not shown
+                        state.interestingPlus += 1;
                         updateDisplay();
                     }, DELAY_BEFORE_COUNT);
                 } else {
@@ -432,10 +409,6 @@
                 updateGuestDisplay();
             });
 
-            document.getElementById('fake-upload').addEventListener('click', function() {
-                document.getElementById('upload-error').classList.add('show');
-            });
-
             window.handleSubmit = function(ev) {
                 ev.preventDefault();
                 var btn = document.getElementById('btn-send');
@@ -452,7 +425,9 @@
                     birthday: document.getElementById('birthday').value,
                     instagram: document.getElementById('instagram').value,
                     reason: '',
-                    guestCount: guestCount
+                    guestCount: guestCount,
+                    level: document.getElementById('level').value,
+                    danceChoice: document.getElementById('dance-choice').value
                 };
 
                 if (REGISTRATION_SCRIPT_URL) {
@@ -466,7 +441,6 @@
                     form.style.display = 'none';
                     success.classList.add('show');
                     form.reset();
-                    document.getElementById('upload-error').classList.remove('show');
                     guestCount = 0;
                     plusStep = 1;
                     updateGuestDisplay();
