@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <!--
-  Site 2: Numbers above labels; Level dropdown (Beginner/Intermediate); Dance choice dropdown (5 options).
-  Form sends: fullName, birthday, instagram, guestCount, level, danceChoice.
+  EVENT REGISTRATION PAGE (Site 2, numbers + text under title, buttons under counters)
+  - Event title and numbers load from /api/config.
+  - Going/Interesting: text turns red, then number updates after short delay; Going scrolls to form.
+  - Guest counter: + (adds 1, then 2, ... up to 10 per click) and - (subtract 1).
+  - Form data can be sent to Google Sheet: set REGISTRATION_SCRIPT_URL below.
+  - Birthday: plain text field so user can type date manually (e.g. 15/03/1990 or 1990-03-15).
 -->
 <html lang="en">
 <head>
@@ -74,7 +78,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 16px;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .main-counter-box {
@@ -107,7 +111,7 @@
         .form-section {
             width: 100%;
             max-width: 420px;
-            margin-top: 36px;
+            margin-top: 12px;
             padding-bottom: 40px;
         }
 
@@ -262,11 +266,7 @@
     <div class="container">
         <h1 class="event-title">Register For Latin Party</h1>
 
-        <div class="buttons-row">
-            <button type="button" class="btn-action" id="btn-going">Going</button>
-            <button type="button" class="btn-action" id="btn-interesting">Interesting</button>
-        </div>
-
+        <!-- counters directly under the title -->
         <div class="main-counters">
             <div class="main-counter-box">
                 <div class="counter-above" id="going-counter-above">
@@ -280,6 +280,12 @@
                 </div>
                 <div class="main-counter-label">People Interesting</div>
             </div>
+        </div>
+
+        <!-- buttons moved below counters -->
+        <div class="buttons-row">
+            <button type="button" class="btn-action" id="btn-going">Going</button>
+            <button type="button" class="btn-action" id="btn-interesting">Interesting</button>
         </div>
 
         <section class="form-section" id="form-section">
