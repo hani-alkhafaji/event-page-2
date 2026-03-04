@@ -5,7 +5,6 @@
   - Going/Interesting: text turns red, then number updates after short delay; Going scrolls to form.
   - Guest counter: + (adds 1, then 2, ... up to 10 per click) and - (subtract 1).
   - Form data can be sent to Google Sheet: set REGISTRATION_SCRIPT_URL below.
-  - Birthday: plain text field so user can type date manually (e.g. 15/03/1990 or 1990-03-15).
 -->
 <html lang="en">
 <head>
@@ -282,7 +281,7 @@
             </div>
         </div>
 
-        <!-- buttons moved below counters -->
+        <!-- buttons below counters -->
         <div class="buttons-row">
             <button type="button" class="btn-action" id="btn-going">Going</button>
             <button type="button" class="btn-action" id="btn-interesting">Interesting</button>
@@ -306,7 +305,15 @@
                     <option value="Intermediate">Intermediate</option>
                 </select>
 
-                <input type="text" class="form-field" id="birthday" placeholder="Your Birthday (Example 15/03/1990)" required>
+                <!-- NEW: course start dropdown instead of birthday text -->
+                <label class="optional-small">اختيار بدء الدورة</label>
+                <select class="form-field" id="course-start" required>
+                    <option value="">Select course start</option>
+                    <option value="1000">1000</option>
+                    <option value="1000">1000</option>
+                    <option value="1000">1000</option>
+                    <option value="1000">1000</option>
+                </select>
 
                 <input type="text" class="form-field" id="instagram" placeholder="Instagram Username to Send you confirmation?" required>
 
@@ -428,12 +435,13 @@
 
                 var data = {
                     fullName: document.getElementById('fullname').value,
-                    birthday: document.getElementById('birthday').value,
+                    // birthday removed, replaced by courseStart
                     instagram: document.getElementById('instagram').value,
                     reason: '',
                     guestCount: guestCount,
                     level: document.getElementById('level').value,
-                    danceChoice: document.getElementById('dance-choice').value
+                    danceChoice: document.getElementById('dance-choice').value,
+                    courseStart: document.getElementById('course-start').value
                 };
 
                 if (REGISTRATION_SCRIPT_URL) {
